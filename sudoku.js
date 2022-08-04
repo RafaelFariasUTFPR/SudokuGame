@@ -1,6 +1,7 @@
 const canvasSize = 450;
-const cellMargin = 4;
-const cellSize = (canvasSize / 9) - cellMargin;
+const cellMargin = 3;
+const squareMargin = 4;
+const cellSize = (canvasSize / 9) - (cellMargin);
 let gameBoard = document.getElementById("game-board");
 
 let cellArr = [];
@@ -23,6 +24,7 @@ function generateCanvas()
 function generateCells()
 {
     //Cria as celulas, ja calculando a row, col e qual square ele está
+    let celln = 0;
     let sqrNumber = 0;
     for(let _row = 0; _row < 9; _row++)
     {
@@ -54,7 +56,8 @@ function generateCells()
             };
             console.log(cellObj.square);
 
-            cellObj.element.id = 'cell'
+            cellObj.element.id = 'cell-' + celln;
+            cellObj.element.className = 'cell'
             cellObj.element.style.width = cellSize+"px";
             cellObj.element.style.height = cellSize+"px";
             cellObj.element.style.backgroundColor = "red";
@@ -63,7 +66,7 @@ function generateCells()
             
             
 
-            
+            celln++;
         }
         sqrNumber -= 2;
     }
@@ -78,8 +81,8 @@ function generateSquares()
             cells: []
         }
 
-        squareObj.element.style.width = canvasSize/3+"px";
-        squareObj.element.style.height = canvasSize/3+"px";
+        squareObj.element.style.width = ((canvasSize/3) - squareMargin) +"px";
+        squareObj.element.style.height = ((canvasSize/3) - squareMargin)+"px";
         squareObj.element.id = 'square';
 
 
