@@ -1,0 +1,21 @@
+#game-board{
+    position: absolute;
+    
+    justify-content: space-evenly;
+
+    display: flex;
+    flex-wrap: wrap;
+    background-color: aqua;
+    border: 2px solid;
+    border-radius: 10px;;
+}
+
+#square{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#cell{
+    border-radius: 5px;
+}
