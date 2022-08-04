@@ -22,24 +22,50 @@ function generateCanvas()
 
 function generateCells()
 {
+    //Cria as celulas, ja calculando a row, col e qual square ele está
+    let sqrNumber = 0;
     for(let _row = 0; _row < 9; _row++)
     {
+        sqrNumber = 0;
+        if(_row > 2)
+            sqrNumber = 3;
+        if(_row > 5)
+        sqrNumber = 6;
+                
+
+        
+        let i = 0;
         for(let _col = 0; _col < 9; _col++)
         {
+            if(i > 2)
+            {
+                sqrNumber++;
+                i = 0;
+            }    
+            i++;
+
             let cellObj = {
                 element: document.createElement('div'),
                 row: _row,
                 col: _col,
+                square: sqrNumber,
                 value: 0,
                 possibleNumbers: "123456789"
             };
+            console.log(cellObj.square);
+
             cellObj.element.id = 'cell'
             cellObj.element.style.width = cellSize+"px";
             cellObj.element.style.height = cellSize+"px";
             cellObj.element.style.backgroundColor = "red";
             cellObj.element.innerHTML=_row+" "+_col;            
             cellArr.push(cellObj);
+            
+            
+
+            
         }
+        sqrNumber -= 2;
     }
 }
 
@@ -56,17 +82,21 @@ function generateSquares()
         squareObj.element.style.height = canvasSize/3+"px";
         squareObj.element.id = 'square';
 
-        for(let cellN = 0; cellN < 9; cellN++)
-        {
-            let c = cellN + (9*i);
-            squareObj.element.appendChild(cellArr[c].element);
-            squareObj.cells.push(cellArr[c]);
 
-        }
         squaresArr.push(squareObj);
 
 
         
-        gameBoard.appendChild(squareObj.element);
+        
     }
+
+    cellArr.forEach(cell => {
+        squaresArr[cell.square].element.appendChild(cell.element);
+        squaresArr[cell.square].cells.push(cell.element);
+        
+    });
+
+    squaresArr.forEach(element => {
+        gameBoard.appendChild(element.element);
+    });
 }
