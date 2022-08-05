@@ -8,21 +8,27 @@ let cellArr = [];
 let squaresArr = [];
 
 
-generateCanvas();
-generateCells();
-generateSquares();
+setup();
+
+//Função para mostrar ou esconder os digitos
+cellArr[0].pencil.hideDigit(1);
+cellArr[0].pencil.showDigit(1);
+cellArr[0].pencil.showDigit(2);
 
 
-
-
-
+//Get click
 cellArr.forEach(cell => {
     document.getElementById(cell.id).onclick = function()    {
         console.log(cell.id);
     }
 });
 
-
+function setup()
+{
+    generateCanvas();
+    generateCells();
+    generateSquares();
+}
 
 function generateCanvas()
 {
@@ -36,23 +42,27 @@ function createPencilObj()
     let _digits = [];
     for(let i = 0; i < 9; i++)
     {
-        let digit = document.createElement('div');
-        digit.className = 'pencil-digit';
-        digit.style.width = cellSize/3 + "px";
-        digit.style.height = cellSize/3 + "px";
-        digit.innerHTML = i;
+        let digit = {
+            element: document.createElement('div'),
+            number: i + 1
+            };
+        digit.element.className = 'pencil-digit';
+        digit.element.style.width = cellSize/3 + "px";
+        digit.element.style.height = cellSize/3 + "px";
+        //digit.element.innerHTML = digit.number;
         _digits.push(digit);
     }
-    let pencilObj = {
-        digits: _digits,
-        activeNumbers:""
-
-    };
-        
-
     return {
         digits: _digits,
-        activeNumbers:""
+        activeNumbers:"",
+        hideDigit(_digit)
+        {
+            this.digits[_digit-1].element.innerHTML = "";
+        },
+        showDigit(_digit)
+        {
+            this.digits[_digit-1].element.innerHTML = this.digits[_digit-1].number;
+        }
 
     };
 }
@@ -98,7 +108,6 @@ function generateCells()
             cellObj.element.className = 'cell';
             cellObj.element.style.width = cellSize+"px";
             cellObj.element.style.height = cellSize+"px";
-            //cellObj.element.innerHTML=_row+" "+_col;    
             
             
             
@@ -135,7 +144,7 @@ function generateSquares()
 
     cellArr.forEach(cell => {
         cell.pencil.digits.forEach(element => {
-            cell.element.appendChild(element);
+            cell.element.appendChild(element.element);
             
         });
 

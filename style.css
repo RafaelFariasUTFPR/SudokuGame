@@ -7,7 +7,8 @@
     flex-wrap: wrap;
     background-color: aqua;
     border: 2px solid;
-    border-radius: 10px;;
+    border-radius: 10px;
+    padding-top: 3px;
 }
 
 #square{
@@ -34,6 +35,7 @@
     
 }
 .pencil-digit{
+    user-select: none;
     margin-top: -2px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     
