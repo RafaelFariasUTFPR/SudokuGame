@@ -11,9 +11,12 @@ let squaresArr = [];
 setup();
 
 //Função para mostrar ou esconder os digitos
-cellArr[0].pencil.hideDigit(1);
-cellArr[0].pencil.showDigit(1);
-cellArr[0].pencil.showDigit(2);
+cellArr[0].showDigit(1);
+cellArr[0].showDigit(5);
+//Set to 0 to hide
+cellArr[5].setValue(3);
+
+
 
 
 //Get click
@@ -49,22 +52,19 @@ function createPencilObj()
         digit.element.className = 'pencil-digit';
         digit.element.style.width = cellSize/3 + "px";
         digit.element.style.height = cellSize/3 + "px";
-        //digit.element.innerHTML = digit.number;
         _digits.push(digit);
     }
     return {
         digits: _digits,
-        activeNumbers:"",
-        hideDigit(_digit)
-        {
-            this.digits[_digit-1].element.innerHTML = "";
-        },
-        showDigit(_digit)
-        {
-            this.digits[_digit-1].element.innerHTML = this.digits[_digit-1].number;
-        }
-
+        activeNumbers:""
     };
+}
+
+function createValueText()
+{
+    let valueObj = document.createElement('div');
+    valueObj.className = 'value';
+    return valueObj;
 }
 
 function generateCells()
@@ -98,9 +98,29 @@ function generateCells()
                 col: _col,
                 square: sqrNumber,
                 value: 0,
+                valueText: createValueText(),
                 possibleNumbers: "123456789",
                 id: 'cell-' + celln,
-                pencil: createPencilObj()
+                pencil: createPencilObj(),
+                hideDigit(_digit)
+                {
+                    this.pencil.digits[_digit-1].element.innerHTML = "";
+                },
+                showDigit(_digit)
+                {
+                    this.pencil.digits[_digit-1].element.innerHTML = this.pencil.digits[_digit-1].number;
+                },
+                setValue(_value)
+                {
+                    this.value = _value;
+                    if(_value == 0)
+                    {
+                        this.valueText.innerHTML = "";
+                        return;
+                    }
+                    this.valueText.innerHTML = _value;
+                }
+        
             };
 
 
@@ -143,6 +163,7 @@ function generateSquares()
     }
 
     cellArr.forEach(cell => {
+        cell.element.appendChild(cell.valueText);
         cell.pencil.digits.forEach(element => {
             cell.element.appendChild(element.element);
             

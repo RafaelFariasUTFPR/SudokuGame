@@ -1,3 +1,7 @@
+body{
+    background-color: whitesmoke;
+}
+
 #game-board{
     position: absolute;
     
@@ -5,7 +9,7 @@
 
     display: flex;
     flex-wrap: wrap;
-    background-color: aqua;
+    background-color: black;
     border: 2px solid;
     border-radius: 10px;
     padding-top: 3px;
@@ -15,28 +19,42 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    background-color: black;
+    background-color: transparent;
 }
 
 .cell{
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    vertical-align: middle;
-    
+    user-select: none;
 
     justify-content: space-evenly;
     border-radius: 5px;
     transition-duration: 100ms;
-    background-color: burlywood;
+    
+    background-color: whitesmoke;
+    
 }
 .cell:hover{
     transform: translateY(-2px);
     
+    
+}
+.cell:active{
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .pencil-digit{
-    user-select: none;
+    
     margin-top: -2px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     
+}
+.value{
+    position: absolute;
+    
+    padding-top: 5px;
+    
+
+    font-family:Verdana, sans-serif;
+    font-size: 30px;
 }
