@@ -14,11 +14,21 @@ generateSquares();
 
 
 
+
+
+cellArr.forEach(cell => {
+    document.getElementById(cell.id).onclick = function()    {
+        console.log(cell.id);
+    }
+});
+
+
+
 function generateCanvas()
 {
     gameBoard.style.width = canvasSize + "px";
     gameBoard.style.height = canvasSize + "px";
-    gameBoard.style.left = "calc(50% - " + canvasSize/2 + "px)";
+    //gameBoard.style.left = "calc(50% - " + canvasSize/2 + "px)";
 }
 
 function generateCells()
@@ -52,16 +62,17 @@ function generateCells()
                 col: _col,
                 square: sqrNumber,
                 value: 0,
-                possibleNumbers: "123456789"
+                possibleNumbers: "123456789",
+                id: 'cell-' + celln
             };
-            console.log(cellObj.square);
-
             cellObj.element.id = 'cell-' + celln;
             cellObj.element.className = 'cell'
             cellObj.element.style.width = cellSize+"px";
             cellObj.element.style.height = cellSize+"px";
-            cellObj.element.style.backgroundColor = "red";
-            cellObj.element.innerHTML=_row+" "+_col;            
+            cellObj.element.innerHTML=_row+" "+_col;    
+            
+            
+            
             cellArr.push(cellObj);
             
             
