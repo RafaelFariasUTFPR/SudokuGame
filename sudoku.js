@@ -31,6 +31,32 @@ function generateCanvas()
     //gameBoard.style.left = "calc(50% - " + canvasSize/2 + "px)";
 }
 
+function createPencilObj()
+{
+    let _digits = [];
+    for(let i = 0; i < 9; i++)
+    {
+        let digit = document.createElement('div');
+        digit.className = 'pencil-digit';
+        digit.style.width = cellSize/3 + "px";
+        digit.style.height = cellSize/3 + "px";
+        digit.innerHTML = i;
+        _digits.push(digit);
+    }
+    let pencilObj = {
+        digits: _digits,
+        activeNumbers:""
+
+    };
+        
+
+    return {
+        digits: _digits,
+        activeNumbers:""
+
+    };
+}
+
 function generateCells()
 {
     //Cria as celulas, ja calculando a row, col e qual square ele está
@@ -63,13 +89,16 @@ function generateCells()
                 square: sqrNumber,
                 value: 0,
                 possibleNumbers: "123456789",
-                id: 'cell-' + celln
+                id: 'cell-' + celln,
+                pencil: createPencilObj()
             };
+
+
             cellObj.element.id = 'cell-' + celln;
-            cellObj.element.className = 'cell'
+            cellObj.element.className = 'cell';
             cellObj.element.style.width = cellSize+"px";
             cellObj.element.style.height = cellSize+"px";
-            cellObj.element.innerHTML=_row+" "+_col;    
+            //cellObj.element.innerHTML=_row+" "+_col;    
             
             
             
@@ -105,6 +134,11 @@ function generateSquares()
     }
 
     cellArr.forEach(cell => {
+        cell.pencil.digits.forEach(element => {
+            cell.element.appendChild(element);
+            
+        });
+
         squaresArr[cell.square].element.appendChild(cell.element);
         squaresArr[cell.square].cells.push(cell.element);
         
