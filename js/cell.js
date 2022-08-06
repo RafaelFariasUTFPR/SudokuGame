@@ -6,6 +6,8 @@ export class Cell{
         this.id = 'cell-' + celln;
         this.cellSize = _cellSize;
         this.pencil = this.#createPencilObj();
+        this.element.id = 'cell-' + celln;
+        this.element.className = 'cell';
         
         
     }
@@ -23,6 +25,17 @@ export class Cell{
             return;
         }
         this.valueText.innerHTML = _value;
+    }
+
+    setPermanent(trueOrFalse)
+    {
+        this.permanent = trueOrFalse;
+        if(trueOrFalse)
+        {
+            this.element.className = 'cell permanent';
+            return;
+        }
+        this.element.className = 'cell';
     }
 
     #createPencilObj()
@@ -54,6 +67,7 @@ export class Cell{
         return valueObj;
     }
 
+
     element = document.createElement('div');
     row;
     col;
@@ -61,9 +75,10 @@ export class Cell{
     id;
     cellSize;
     value = 0;
+    permanent = false;
     valueText = this.#createValueText();
-    possibleNumbers = "123456789";
-    pencil
+    possibleNumbers = [1,2,3,4,5,6,7,8,9];
+    pencil;
 
 
 

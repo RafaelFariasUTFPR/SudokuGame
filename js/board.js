@@ -39,8 +39,7 @@ export class Board{
                 
     
     
-                cellObj.element.id = 'cell-' + celln;
-                cellObj.element.className = 'cell';
+
                 cellObj.element.style.width = this.canvas.cellSize+"px";
                 cellObj.element.style.height = this.canvas.cellSize+"px";
                 
@@ -65,7 +64,8 @@ export class Board{
 
             squareObj.element.style.width = ((this.canvas.canvasSize/3) - this.canvas.squareMargin) +"px";
             squareObj.element.style.height = ((this.canvas.canvasSize/3) - this.canvas.squareMargin)+"px";
-            squareObj.element.id = 'square';
+            squareObj.element.id = 'square-' + i;
+            squareObj.element.className = 'square';
 
             
             this.squaresArr.push(squareObj);
