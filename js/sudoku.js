@@ -16,7 +16,14 @@ let game1 = new Game();
 
 */
 
+//game1.testValue();
 
 
-game1.testValue();
-game1.board.cellArr[0].setPermanent(true);
+
+
+//Recebendo o input
+window.onkeydown = input =>{
+    game1.input(input.key);
+}
+
+game1.loop();

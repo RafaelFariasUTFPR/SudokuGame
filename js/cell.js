@@ -3,7 +3,7 @@ export class Cell{
         this.row = _row;
         this.row = _col;
         this.square = sqrNumber;
-        this.id = 'cell-' + celln;
+        this.index = celln;
         this.cellSize = _cellSize;
         this.pencil = this.#createPencilObj();
         this.element.id = 'cell-' + celln;
@@ -72,7 +72,7 @@ export class Cell{
     row;
     col;
     square;
-    id;
+    index;
     cellSize;
     value = 0;
     permanent = false;
