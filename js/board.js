@@ -36,6 +36,7 @@ export class Board{
                 i++;
                 
                 let cellObj = new Cell(_row, _col, sqrNumber, celln, this.canvas.cellSize);
+                
     
     
                 cellObj.element.id = 'cell-' + celln;

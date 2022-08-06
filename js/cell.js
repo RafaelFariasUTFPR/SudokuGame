@@ -4,7 +4,10 @@ export class Cell{
         this.row = _col;
         this.square = sqrNumber;
         this.id = 'cell-' + celln;
-        this.cellSize = _cellSize
+        this.cellSize = _cellSize;
+        this.pencil = this.#createPencilObj();
+        
+        
     }
     hideDigit(_digit){
         this.pencil.digits[_digit-1].element.innerHTML = "";
@@ -33,7 +36,9 @@ export class Cell{
                 };
             digit.element.className = 'pencil-digit';
             digit.element.style.width = this.cellSize/3 + "px";
+            digit.element.style.width = this.cellSize/3 + "px";
             digit.element.style.height = this.cellSize/3 + "px";
+            
             _digits.push(digit);
         }
         return {
@@ -58,7 +63,7 @@ export class Cell{
     value = 0;
     valueText = this.#createValueText();
     possibleNumbers = "123456789";
-    pencil = this.#createPencilObj();
+    pencil
 
 
 

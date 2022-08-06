@@ -1,16 +1,10 @@
 import { Solver } from "./solver.js";
-import { Board } from "./board.js";
-import { Canvas } from "./canvas.js";
-
-const canvasSize = 450;
-const cellMargin = 3;
-const squareMargin = 4;
-const cellSize = (canvasSize / 9) - (cellMargin);
+import {Game} from "./game.js"
 
 
 
-let canvas = new Canvas(canvasSize, cellMargin, squareMargin, cellSize);
+let game1 = new Game();
 
-let board = new Board(canvas);
-board.cellArr[9].showDigit(2);
-console.log(board.cellArr[1].cellSize);
+
+game1.testPencil();
+console.log(game1.board.cellArr[0].cellSize);
