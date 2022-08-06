@@ -1,4 +1,4 @@
-export class solver{
+export class Solver{
     constructor(){
         console.log("asdnasdkjnsadkjna");
     }
