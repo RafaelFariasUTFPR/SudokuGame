@@ -21,13 +21,22 @@ export class Game{
 
         //Convertendo string para int
         key = parseInt(key);
-        if(this.setupMode && !isNaN(key) && (this.activeCell >= 0 && this.activeCell < this.board.cellArr.length)){                        
+        if(!isNaN(key) && (this.activeCell >= 0 && this.activeCell < this.board.cellArr.length)){
+            //Caso esteja no modo de setup
+            if(this.setupMode)
+            {
+                this.board.cellArr[this.activeCell].setValue(key);
+                //Setando como não permanente caso seja 0 ou seja caso apague
+                this.board.cellArr[this.activeCell].setPermanent(Boolean(key));
+                this.#highlightCells(this.activeCell);
+                return;
+            }
+            if(!this.board.cellArr[this.activeCell].permanent)
+            {
+                this.board.cellArr[this.activeCell].setValue(key);
+                this.#highlightCells(this.activeCell);
+            }
 
-
-            this.board.cellArr[this.activeCell].setValue(key);
-
-            //Setando como não permanente caso seja 0 ou seja caso apague
-            this.board.cellArr[this.activeCell].setPermanent(Boolean(key));
         }
     }
 
@@ -35,7 +44,6 @@ export class Game{
         //Input da checkbox "setup mode"
         this.setupModeCheckbox.onclick = () =>{
             this.setupMode = !this.setupMode
-            console.log(this.setupMode);
         }
 
         //Input das celulas
@@ -45,7 +53,37 @@ export class Game{
             }
         });
 
+
+
     }
+
+
+    #highlightCells(cellIndex){
+        this.board.cellArr.forEach(element => {
+            if(element.index == cellIndex)
+                return;
+            element.highlightCell(false);
+            
+            if(this.highlightOptions.col && element.col == this.board.cellArr[cellIndex].col){
+                element.highlightCell(true);
+                return;
+            }
+            if(this.highlightOptions.row && element.row == this.board.cellArr[cellIndex].row){
+                element.highlightCell(true);
+                return;
+            }
+            if(this.highlightOptions.square && element.square == this.board.cellArr[cellIndex].square){
+                element.highlightCell(true);
+                return;
+            }
+            if(this.highlightOptions.value && element.value == this.board.cellArr[cellIndex].value && element.value != 0){
+                element.highlightCell(true);
+                return;
+            }                  
+        });
+
+    }
+
 
     #lastActiveCell = null;
     #selectCell(cellIndex){
@@ -55,9 +93,18 @@ export class Game{
 
         }
         
+
+        
+        this.#highlightCells(cellIndex);
+        
+
+
         this.activeCell = cellIndex;
         this.board.cellArr[cellIndex].setIsActive(true);
         this.#lastActiveCell = cellIndex;
+
+        
+
     }
 
     canvasSize = 450;
@@ -69,6 +116,12 @@ export class Game{
     board = new Board(this.canvas);
     setupMode = false;
     setupModeCheckbox = document.getElementById("setup-mode-checkbox");
+    highlightOptions = {
+        col: true,
+        row: true,
+        square: false,
+        value: true
+    };
 
 
     

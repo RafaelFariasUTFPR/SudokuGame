@@ -67,3 +67,7 @@ body{
 .active-cell{
     background-color: aquamarine;
 }
+
+.highlight-cell{
+    background-color: aqua;
+}

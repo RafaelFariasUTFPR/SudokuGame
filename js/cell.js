@@ -1,14 +1,13 @@
 export class Cell{
     constructor(_row, _col, sqrNumber, celln, _cellSize){
         this.row = _row;
-        this.row = _col;
+        this.col = _col;
         this.square = sqrNumber;
         this.index = celln;
         this.cellSize = _cellSize;
         this.pencil = this.#createPencilObj();
         this.element.id = 'cell-' + celln;
-        this.element.className = 'cell';
-        
+        this.element.className = 'cell';     
         
     }
     hideDigit(_digit){
@@ -66,6 +65,19 @@ export class Cell{
         valueObj.className = 'value';
         return valueObj;
     }
+
+    highlightCell(trueOrFalse){
+        if(trueOrFalse){
+            if(!this.element.className.includes(' highlight-cell'))
+                this.element.className += ' highlight-cell';
+            return
+        }
+        
+        if(this.element.className.includes(" highlight-cell"))
+            this.element.className = this.element.className.replace(" highlight-cell", "");
+
+    }
+
 
     setIsActive(trueOrFalse){
         if(trueOrFalse){
