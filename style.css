@@ -77,7 +77,7 @@ body{
     transition-duration: 150ms;
     color: #858578;
     background-color: #1E1E1E;
-
+    
     box-shadow: inset 0px 0px 7px rgba(0, 0, 0, 0.75);
 
     
@@ -94,8 +94,11 @@ body{
     box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 1);
 }
 .pencil-digit{
-    color: black;
-    margin-top: -2px;    
+    
+    color: #858578;
+    font-weight: 400;
+    margin-top: -1px;   
+    font-size: 12px; 
 }
 .value{
     position: absolute;

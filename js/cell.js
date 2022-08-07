@@ -10,6 +10,14 @@ export class Cell{
         this.element.className = 'cell';     
         
     }
+    togglePencilDigit(_digit){
+        console.log(_digit);
+        if(this.pencil.digits[_digit-1].element.innerHTML == ""){
+            this.pencil.digits[_digit-1].element.innerHTML = this.pencil.digits[_digit-1].number;
+            return;
+        }
+        this.pencil.digits[_digit-1].element.innerHTML = "";
+    }
     hideDigit(_digit){
         this.pencil.digits[_digit-1].element.innerHTML = "";
     }

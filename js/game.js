@@ -26,8 +26,24 @@ export class Game{
         if(key == 'Backspace' || key == 'Delete')
             parsedKey = 0;
         
-
+        
         if(!isNaN(parsedKey) && (this.activeCell >= 0 && this.activeCell < this.board.cellArr.length)){
+            if(parsedKey == 0){
+                for(let i = 1; i < 10; i++){
+                    this.board.cellArr[this.activeCell].hideDigit(i);
+                }
+                
+            }
+            
+            if(this.pencilMode){
+                if(this.board.cellArr[this.activeCell].value == 0 && parsedKey != 0){
+                    console.log("aqui");
+                    this.board.cellArr[this.activeCell].togglePencilDigit(parsedKey);
+
+                }
+                //Não permite que sejam colocados valores caso o modo lápis esteja ligado
+                return;
+            } 
             //Caso esteja no modo de setup
             if(this.setupMode)
             {
@@ -44,6 +60,7 @@ export class Game{
             }
 
         }
+        
     }
 
     loop(){
@@ -58,6 +75,32 @@ export class Game{
                 this.#selectCell(element.index);                
             }
         });
+
+        this.numberInputButtons.forEach(element => {
+            element.onclick = () =>{
+                this.input(element.value);               
+            }
+        });
+
+        this.toolInputButtons.backspace.onclick = () =>{
+            this.input(0);
+        };
+        
+        this.toolInputButtons.undo.onclick = () =>{
+            //TODO
+        };
+
+        this.toolInputButtons.pencil.onclick = () =>{
+            if(this.pencilMode){
+                this.toolInputButtons.pencil.id = "tool-btn-pencil";
+                this.pencilMode = false;
+                return;
+            }
+            this.pencilMode = true;
+            this.toolInputButtons.pencil.id = "tool-btn-pencil-selected";
+                
+        };
+
 
     }
 
@@ -120,6 +163,8 @@ export class Game{
     board = new Board(this.canvas);
     setupMode = false;
     setupModeCheckbox = document.getElementById("setup-mode-checkbox");
+    pencilMode = false;
+
     highlightOptions = {
         col: true,
         row: true,
@@ -127,6 +172,24 @@ export class Game{
         value: true
     };
 
+    numberInputButtons = [
+        document.getElementById("number-btn-1"),
+        document.getElementById("number-btn-2"),
+        document.getElementById("number-btn-3"),
+        document.getElementById("number-btn-4"),
+        document.getElementById("number-btn-5"),
+        document.getElementById("number-btn-6"),
+        document.getElementById("number-btn-7"),
+        document.getElementById("number-btn-8"),
+        document.getElementById("number-btn-9")
+    ];
+
+    toolInputButtons = {
+        pencil: document.getElementById("tool-btn-pencil"),
+        //pencilSelected: document.getElementById("tool-btn-pencil-selected"),
+        undo: document.getElementById("tool-btn-undo"),
+        backspace: document.getElementById("tool-btn-backspace")
+    };
 
     
 }
