@@ -119,7 +119,7 @@ export class Game{
     highlightOptions = {
         col: true,
         row: true,
-        square: false,
+        square: true,
         value: true
     };
 
