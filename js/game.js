@@ -41,10 +41,23 @@ export class Game{
         //Input das celulas
         this.board.cellArr.forEach(element => {
             element.element.onclick = () =>{
-                this.activeCell = element.index;
+                this.#selectCell(element.index);                
             }
         });
 
+    }
+
+    #lastActiveCell = null;
+    #selectCell(cellIndex){
+        if(this.#lastActiveCell != null)
+        {
+            this.board.cellArr[this.#lastActiveCell].setIsActive(false);
+
+        }
+        
+        this.activeCell = cellIndex;
+        this.board.cellArr[cellIndex].setIsActive(true);
+        this.#lastActiveCell = cellIndex;
     }
 
     canvasSize = 450;

@@ -32,10 +32,10 @@ export class Cell{
         this.permanent = trueOrFalse;
         if(trueOrFalse)
         {
-            this.element.className = 'cell permanent';
+            this.valueText.className = 'value permanent';
             return;
         }
-        this.element.className = 'cell';
+        this.valueText.className = 'value';
     }
 
     #createPencilObj()
@@ -65,6 +65,14 @@ export class Cell{
         let valueObj = document.createElement('div');
         valueObj.className = 'value';
         return valueObj;
+    }
+
+    setIsActive(trueOrFalse){
+        if(trueOrFalse){
+            this.element.className = 'cell active-cell';
+            return;
+        }
+        this.element.className = 'cell';
     }
 
 
