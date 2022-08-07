@@ -9,16 +9,37 @@
 </head>
 <body>
     <div class="canvas">
-        <div id="game-board"></div>
-        <div id="game-menu">
+        <div class="play-area">
+            <div class="game-area">
+                <div id="game-board"></div>
+                <div id="input-menu">
+                    <div class="numbers-keyboard">
+                        <input type="button" value="1" class="number-btn" id="number-btn-1" />
+                        <input type="button" value="2" class="number-btn" id="number-btn-2" />
+                        <input type="button" value="3" class="number-btn" id="number-btn-3" />
+                        <input type="button" value="4" class="number-btn" id="number-btn-4" />
+                        <input type="button" value="5" class="number-btn" id="number-btn-5" />
+                        <input type="button" value="6" class="number-btn" id="number-btn-6" />
+                        <input type="button" value="7" class="number-btn" id="number-btn-7" />
+                        <input type="button" value="8" class="number-btn" id="number-btn-8" />
+                        <input type="button" value="9" class="number-btn" id="number-btn-9" />
+                    </div>
+                    <div class="tools-keyboard">
+                        <input type="button" value="" class="tool-btn " id="tool-btn-pencil-selected" />
+                        <input type="button" value="" class="tool-btn" id="tool-btn-undo" />
+                        <input type="button" value="" class="tool-btn" id="tool-btn-backspace" />
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="config-area">
             <label>
                 <input type="checkbox" id="setup-mode-checkbox">
                 Modo de setup
             </label>
-            <label>
-                <input type="checkbox" id="pencil-mode-checkbox">
-                Modo Lápis
-            </label>
+            
         </div>
 
     </div>

@@ -18,22 +18,28 @@ export class Game{
     }
 
     input(key){
-
+        
         //Convertendo string para int
-        key = parseInt(key);
-        if(!isNaN(key) && (this.activeCell >= 0 && this.activeCell < this.board.cellArr.length)){
+        let parsedKey = parseInt(key);
+
+        //Possibilitando apagar com del ou backspace
+        if(key == 'Backspace' || key == 'Delete')
+            parsedKey = 0;
+        
+
+        if(!isNaN(parsedKey) && (this.activeCell >= 0 && this.activeCell < this.board.cellArr.length)){
             //Caso esteja no modo de setup
             if(this.setupMode)
             {
-                this.board.cellArr[this.activeCell].setValue(key);
+                this.board.cellArr[this.activeCell].setValue(parsedKey);
                 //Setando como não permanente caso seja 0 ou seja caso apague
-                this.board.cellArr[this.activeCell].setPermanent(Boolean(key));
+                this.board.cellArr[this.activeCell].setPermanent(Boolean(parsedKey));
                 this.#highlightCells(this.activeCell);
                 return;
             }
             if(!this.board.cellArr[this.activeCell].permanent)
             {
-                this.board.cellArr[this.activeCell].setValue(key);
+                this.board.cellArr[this.activeCell].setValue(parsedKey);
                 this.#highlightCells(this.activeCell);
             }
 
@@ -52,8 +58,6 @@ export class Game{
                 this.#selectCell(element.index);                
             }
         });
-
-
 
     }
 
@@ -107,7 +111,7 @@ export class Game{
 
     }
 
-    canvasSize = 450;
+    canvasSize = 400;
     cellMargin = 3;
     squareMargin = 4;
     cellSize = (this.canvasSize / 9) - (this.cellMargin);
