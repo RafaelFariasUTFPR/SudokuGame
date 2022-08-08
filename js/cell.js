@@ -11,27 +11,54 @@ export class Cell{
         
     }
     togglePencilDigit(_digit){
-        console.log(_digit);
         if(this.pencil.digits[_digit-1].element.innerHTML == ""){
-            this.pencil.digits[_digit-1].element.innerHTML = this.pencil.digits[_digit-1].number;
+            this.showDigit(_digit)
+            //this.pencil.digits[_digit-1].element.innerHTML = this.pencil.digits[_digit-1].number;
             return;
         }
-        this.pencil.digits[_digit-1].element.innerHTML = "";
+        this.hideDigit(_digit);
+        //this.pencil.digits[_digit-1].element.innerHTML = "";
     }
     hideDigit(_digit){
         this.pencil.digits[_digit-1].element.innerHTML = "";
+        if(this.pencil.visibleNumbers == null)
+            return;
+        if(this.pencil.visibleNumbers.includes(_digit)){
+            for(let i = 0; i < this.pencil.visibleNumbersLength; i++)
+            {
+                if(this.pencil.visibleNumbers[i] == _digit)
+                {
+                    this.pencil.visibleNumbers.splice(i,1);
+                    this.pencil.visibleNumbersLength--;
+                }
+            }
+
+        }
     }
     showDigit(_digit){
         this.pencil.digits[_digit-1].element.innerHTML = this.pencil.digits[_digit-1].number;
+
+        
+        if(!this.pencil.visibleNumbers.includes(_digit))
+        {
+            this.pencil.visibleNumbers.push(_digit);
+            this.pencil.visibleNumbersLength++;
+        }
+        
+
     }
     setValue(_value){
-        this.value = _value;
-        if(_value == 0)
+        let tempValue = _value;
+        if(tempValue == this.value)
+            tempValue = 0;
+
+        this.value = tempValue;
+        if(tempValue == 0)
         {
             this.valueText.innerHTML = "";
             return;
         }
-        this.valueText.innerHTML = _value;
+        this.valueText.innerHTML = tempValue;
     }
 
     setPermanent(trueOrFalse)
@@ -63,7 +90,8 @@ export class Cell{
         }
         return {
             digits: _digits,
-            activeNumbers:""
+            visibleNumbers: [],
+            visibleNumbersLength: 0
         };
     }
 
@@ -87,6 +115,10 @@ export class Cell{
     }
 
 
+
+
+
+
     setIsActive(trueOrFalse){
         if(trueOrFalse){
             this.element.className = 'cell active-cell';
@@ -106,7 +138,7 @@ export class Cell{
     permanent = false;
     valueText = this.#createValueText();
     possibleNumbers = [1,2,3,4,5,6,7,8,9];
-    pencil;
+    pencil = [];
 
 
 

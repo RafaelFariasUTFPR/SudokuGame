@@ -1,5 +1,6 @@
 import { Board } from "./board.js";
 import { Canvas } from "./canvas.js";
+import { Cell } from "./cell.js";
 
 export class Game{
     constructor(){
@@ -17,6 +18,42 @@ export class Game{
         });
     }
 
+    #hideAllPencilDigits(){
+        for(let i = 1; i < 10; i++){
+            this.board.cellArr[this.activeCell].hideDigit(i);
+        }
+
+    }
+
+    #saveLastMove(_previousState){
+        
+        let move = new LastMove(_previousState);
+        
+        
+        console.log(move.previousState);
+        this.moveList.push(move);        
+    }
+
+    #undoLastMove(){
+        if(this.moveList.length == 0)
+            return;
+        let lastMove = this.moveList[this.moveList.length-1];
+        this.#selectCell(lastMove.previousState.index);
+
+        this.board.cellArr[lastMove.previousState.index].setValue(0);
+        this.board.cellArr[lastMove.previousState.index].setValue(lastMove.previousState.value);
+        for(let i = 1; i < 10; i++)
+            this.board.cellArr[lastMove.previousState.index].hideDigit(i);
+        
+        lastMove.previousState.pencil.visibleNumbers.forEach(element => {
+            this.board.cellArr[lastMove.previousState.index].showDigit(element);
+        });
+        
+
+        this.moveList.pop();
+
+    }
+
     input(key){
         
         //Convertendo string para int
@@ -28,38 +65,39 @@ export class Game{
         
         
         if(!isNaN(parsedKey) && (this.activeCell >= 0 && this.activeCell < this.board.cellArr.length)){
-            if(parsedKey == 0){
-                for(let i = 1; i < 10; i++){
-                    this.board.cellArr[this.activeCell].hideDigit(i);
-                }
-                
-            }
+            if(parsedKey == 0)
+                this.#hideAllPencilDigits();
             
             if(this.pencilMode){
                 if(this.board.cellArr[this.activeCell].value == 0 && parsedKey != 0){
-                    console.log("aqui");
+                    this.#saveLastMove(this.board.cellArr[this.activeCell]);
                     this.board.cellArr[this.activeCell].togglePencilDigit(parsedKey);
-
                 }
                 //Não permite que sejam colocados valores caso o modo lápis esteja ligado
                 return;
             } 
+            this.#saveLastMove(this.board.cellArr[this.activeCell]);
+            this.#hideAllPencilDigits();
             //Caso esteja no modo de setup
             if(this.setupMode)
             {
+                this.#highlightCells(this.activeCell);
                 this.board.cellArr[this.activeCell].setValue(parsedKey);
                 //Setando como não permanente caso seja 0 ou seja caso apague
                 this.board.cellArr[this.activeCell].setPermanent(Boolean(parsedKey));
-                this.#highlightCells(this.activeCell);
                 return;
             }
             if(!this.board.cellArr[this.activeCell].permanent)
             {
+                
+                
                 this.board.cellArr[this.activeCell].setValue(parsedKey);
                 this.#highlightCells(this.activeCell);
+
             }
 
         }
+        
         
     }
 
@@ -87,7 +125,7 @@ export class Game{
         };
         
         this.toolInputButtons.undo.onclick = () =>{
-            //TODO
+            this.#undoLastMove();
         };
 
         this.toolInputButtons.pencil.onclick = () =>{
@@ -164,11 +202,13 @@ export class Game{
     setupMode = false;
     setupModeCheckbox = document.getElementById("setup-mode-checkbox");
     pencilMode = false;
+    
+    moveList = [];
 
     highlightOptions = {
         col: true,
         row: true,
-        square: true,
+        square: false,
         value: true
     };
 
@@ -190,6 +230,16 @@ export class Game{
         undo: document.getElementById("tool-btn-undo"),
         backspace: document.getElementById("tool-btn-backspace")
     };
+
+
+    
+}
+class LastMove{
+    constructor(_previousState){
+        this.previousState = JSON.parse(JSON.stringify(_previousState));
+
+    }
+    previousState;
 
     
 }

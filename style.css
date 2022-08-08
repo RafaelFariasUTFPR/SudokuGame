@@ -74,7 +74,8 @@ body{
 
     justify-content: space-evenly;
     border-radius: 4px;
-    transition-duration: 150ms;
+    transition-duration: 75ms;
+    
     color: #858578;
     background-color: #1E1E1E;
     
@@ -102,7 +103,7 @@ body{
 }
 .value{
     position: absolute;
-    padding-top: 5px;
+    padding-top: 3px;
     font-size: 30px;
     font-weight: 450;
 }
@@ -115,7 +116,13 @@ body{
     background-color: #1D212C;
 }
 
+.highlight-number{
+    color: blue;
+}
+
 .number-btn{
+    cursor: pointer;
+
     width: 70px;
     height: 70px;
     background: #1E1E1E;
@@ -148,6 +155,7 @@ body{
 }
 
 .tool-btn{
+    cursor: pointer;
     width: 100px;
     height: 80px;
     border-radius: 20px;
