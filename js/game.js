@@ -4,6 +4,8 @@ import { Cell } from "./cell.js";
 
 export class Game{
     constructor(){
+        //Iniciando no dark mode
+        document.documentElement.setAttribute('data-theme', 'dark');
     }
 
     testPencil(){

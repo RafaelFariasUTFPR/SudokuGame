@@ -27,4 +27,18 @@ window.onkeydown = input =>{
     game1.input(input.key);
 }
 
+//Iniciando no dark mode
+document.documentElement.setAttribute('data-theme', 'dark');
+
+
+document.getElementById("theme-btn").onclick =() =>{
+    let dataTheme = document.documentElement.getAttribute("data-theme");
+    if(dataTheme == "dark"){
+        document.documentElement.setAttribute("data-theme", "light");
+        return;
+    }
+    document.documentElement.setAttribute("data-theme", "dark");
+};
+
+
 game1.loop();
