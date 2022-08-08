@@ -14,9 +14,9 @@ export class Canvas{
         //gameBoard.style.left = "calc(50% - " + canvasSize/2 + "px)";
     }
 
-    canvasSize;
-    cellMargin; 
-    squareMargin;
-    cellSize;
+    canvasSize = 400;
+    cellMargin = 3;
+    squareMargin = 4;
+    cellSize = (this.canvasSize / 9) - (this.cellMargin);
     gameBoard = document.getElementById("game-board");
 }

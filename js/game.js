@@ -4,8 +4,6 @@ import { Cell } from "./cell.js";
 
 export class Game{
     constructor(){
-        //Iniciando no dark mode
-        document.documentElement.setAttribute('data-theme', 'dark');
     }
 
     testPencil(){
@@ -28,12 +26,9 @@ export class Game{
     }
 
     #saveLastMove(_previousState){
-        
         let move = new LastMove(_previousState);
-        
-        
-        console.log(move.previousState);
-        this.moveList.push(move);        
+        this.moveList.push(move);  
+
     }
 
     #undoLastMove(){
@@ -55,6 +50,9 @@ export class Game{
         this.moveList.pop();
 
     }
+
+    //TODO
+    //Remove pencil marks after setting value    
 
     input(key){
         
@@ -172,6 +170,18 @@ export class Game{
     }
 
 
+    setBoard(_permanentBoard){
+        for(let i = 0; i < this.board.cellArr.length; i++){
+            if(!!_permanentBoard.cellArr[i].value)
+                this.board.cellArr[i].setPermanent(true);
+
+            this.board.cellArr[i].setValue(_permanentBoard.cellArr[i].value);
+        
+        }
+        
+    }
+
+
     #lastActiveCell = null;
     #selectCell(cellIndex){
         if(this.#lastActiveCell != null)
@@ -200,7 +210,7 @@ export class Game{
     cellSize = (this.canvasSize / 9) - (this.cellMargin);
     activeCell = -1;
     canvas = new Canvas(this.canvasSize, this.cellMargin, this.squareMargin, this.cellSize);
-    board = new Board(this.canvas);
+    board = new Board(this.canvas, true);
     setupMode = false;
     setupModeCheckbox = document.getElementById("setup-mode-checkbox");
     pencilMode = false;

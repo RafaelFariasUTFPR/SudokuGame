@@ -2,12 +2,17 @@ import { Cell } from "./cell.js";
 
 
 export class Board{
-    constructor(_canvas){
+    constructor(_canvas, appendTrueOrFalse){
         this.canvas = _canvas;
         
+        this.append = appendTrueOrFalse;
+
         this.#generateCells();
+        if(!this.append)
+            return;
         this.#generateSquares();
         this.#appendSquares();
+        
     }
 
     #generateCells()
@@ -108,5 +113,6 @@ export class Board{
     cellSize;
     //Elemento HTML do div que contem o jogo
     gameBoard = document.getElementById("game-board");
+    append = true;
 
 }
